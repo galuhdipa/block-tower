@@ -1,0 +1,15 @@
+# Note: robots.txt only works at the root of a domain.
+# On a GitHub Pages project site (username.github.io/block-tower/) it has no effect;
+# it works on a user site (username.github.io) or a custom domain.
+
+User-agent: *
+Allow: /
+
+# Example: opt out of AI training crawlers, but stay in search
+User-agent: GPTBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+Sitemap: https://username.github.io/block-tower/sitemap.xml

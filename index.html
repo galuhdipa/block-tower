@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Part 3: SEO essentials. Replace "username" and "block-tower" with your GitHub user and repo. -->
+  <title>Live Ethereum Block Tower – 3D Blockchain Visualizer</title>
+  <meta name="description" content="See the latest Ethereum blocks as an interactive 3D chart. Bar height shows how many transactions each block contains.">
+  <link rel="canonical" href="https://username.github.io/block-tower/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Live Ethereum Block Tower">
+  <meta property="og:description" content="Interactive 3D chart of the most recent Ethereum blocks.">
+  <meta property="og:url" content="https://username.github.io/block-tower/">
+  <meta property="og:image" content="https://username.github.io/block-tower/preview.png">
+
+  <!-- Part 3: structured data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Live Ethereum Block Tower",
+    "url": "https://username.github.io/block-tower/",
+    "description": "Interactive 3D chart of the most recent Ethereum blocks. Bar height shows the number of transactions per block.",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any (web browser)",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "What does the bar height mean?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Each bar's height equals the number of transactions in that Ethereum block." } },
+      { "@type": "Question", "name": "Where does the data come from?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The page reads the latest blocks from the public Ethereum network through a JSON-RPC gateway when it loads." } }
+    ]
+  }
+  </script>
+
+  <style>
+    :root { color-scheme: light; }
+    body { font-family: system-ui, sans-serif; margin: 0 auto; max-width: 900px; padding: 1rem; color: #1f2937; line-height: 1.5; }
+    h1 { margin-bottom: 0.25rem; }
+    #scene { width: 100%; height: 400px; display: block; border-radius: 8px; }   /* fixed height = no CLS */
+    button { font: inherit; padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid #1d4ed8; background: #1d4ed8; color: #fff; cursor: pointer; }
+    button.secondary { background: #fff; color: #1d4ed8; }
+    button:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+    table { border-collapse: collapse; margin-top: 1rem; }
+    th, td { border: 1px solid #d1d5db; padding: 0.25rem 0.75rem; text-align: right; }
+    #consent { position: fixed; bottom: 1rem; left: 1rem; right: 1rem; max-width: 640px; margin: auto; background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 8px; padding: 1rem; }
+    #consent[hidden] { display: none; }
+    footer { margin-top: 2rem; font-size: 0.875rem; color: #4b5563; }
+  </style>
+
+  <!-- Part 1: Three.js from a CDN through an import map (no build tools) -->
+  <script type="importmap">
+  { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js" } }
+  </script>
+</head>
+<body>
+  <main>
+    <h1>Live Ethereum Block Tower</h1>
+    <!-- Part 3: answer-first, crawlable text (not only pixels in the canvas) -->
+    <p>A 3D chart of the 7 most recent Ethereum blocks. Each bar is one block, and its height shows
+       how many transactions that block contains. Data is read live from the Ethereum network when the page loads.</p>
+    <p id="summary" aria-live="polite">Loading the latest blocks…</p>
+
+    <!-- Part 4: accessible canvas + keyboard-operable control -->
+    <canvas id="scene" role="img" aria-label="3D bar chart of recent Ethereum blocks"></canvas>
+    <p><button id="toggle" type="button">Pause animation</button></p>
+
+    <!-- Same data as a table, for screen readers and crawlers -->
+    <table id="data-table" aria-label="Transactions per block">
+      <thead><tr><th scope="col">Block</th><th scope="col">Transactions</th></tr></thead>
+      <tbody></tbody>
+    </table>
+
+    <section>
+      <h2>What does the bar height mean?</h2>
+      <p>Each bar's height equals the number of transactions in that Ethereum block.</p>
+      <h2>Where does the data come from?</h2>
+      <p>The page reads the latest blocks from the public Ethereum network through a JSON-RPC gateway
+         (a public RPC endpoint). No wallet or account is needed to read data.</p>
+      <h2>How often does Ethereum produce a block?</h2>
+      <p>About every 12 seconds. Reload the page to see the newest blocks.</p>
+    </section>
+  </main>
+
+  <footer>
+    IF3110 Web-based Application Development · Last updated: <time datetime="2026-11-22">22 November 2026</time>
+  </footer>
+
+  <!-- Part 4: consent banner. Analytics stays off until the user accepts. -->
+  <div id="consent" role="dialog" aria-label="Analytics consent" hidden>
+    <p>We use Google Analytics to learn which features are used. No data is collected unless you accept.</p>
+    <button id="consent-accept" type="button">Accept</button>
+    <button id="consent-decline" type="button" class="secondary">Decline</button>
+  </div>
+
+  <script src="analytics.js"></script>
+  <script type="module" src="main.js"></script>
+</body>
+</html>
